@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29721.120
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NativeApp", "NativeApp\NativeApp.vcxproj", "{712DF741-8BC0-4976-949C-9DF0E5E72B20}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D72A5A0F-4FB0-4E11-ADE7-40CC377D06E9} = {D72A5A0F-4FB0-4E11-ADE7-40CC377D06E9}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppCliInterop", "CppCliInterop\CppCliInterop.vcxproj", "{D72A5A0F-4FB0-4E11-ADE7-40CC377D06E9}"
 EndProject

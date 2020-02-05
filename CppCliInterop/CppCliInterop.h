@@ -1,10 +1,15 @@
 #pragma once
 
-using namespace System;
+class CppCliManagedState;
 
-namespace CppCliInterop {
-	public class CppCliInterop
-	{
-		// TODO: Add your methods for this class here.
-	};
-}
+class __declspec(dllexport) CppCliInterop
+{
+public:
+	CppCliInterop();
+	~CppCliInterop();
+
+	virtual void ShowForm();
+	virtual void SetMessage(wchar_t* message);
+private:
+	CppCliManagedState* _managedState;
+};

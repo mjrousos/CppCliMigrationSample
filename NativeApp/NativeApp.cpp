@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "NativeApp.h"
+#include "..\CppCliInterop\CppCliInterop.h"
 
 #define MAX_LOADSTRING 100
 
@@ -10,6 +11,8 @@
 HINSTANCE hInst;                                // current instance
 WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
 WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
+
+CppCliInterop cppCli;                           // Class for interoperating with managed dependency
 
 // Forward declarations of functions included in this code module:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -132,7 +135,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             switch (wmId)
             {
             case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+                cppCli.SetMessage((wchar_t*)L"Hello, from C++\0");
+                cppCli.ShowForm();
                 break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
