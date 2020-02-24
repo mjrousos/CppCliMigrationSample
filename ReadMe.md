@@ -15,7 +15,7 @@ First, I need to make a sample solution to migrate. I'm going to use an app with
 1. **CppCliInterop** A .NET Framework C++/CLI library.
     1. This will be used as the interop layer to connect the app to the managed WinForms library.
     1. It references `ManagedLibrary` and allows native projects to use it.
-    1. This is the project that needs migrated to .NET Core.
+    1. This is the project that needs to be migrated to .NET Core.
 
 The sample code is available [on GitHub](https://github.com/mjrousos/CppCliMigrationSample). When you start the app, if you click on the Help -> About menu, the WinForms form will be displayed with text in its text box supplied by the NativeApp project.
 
@@ -23,13 +23,15 @@ The sample code is available [on GitHub](https://github.com/mjrousos/CppCliMigra
 
 Now for the interesting part - updating the sample app to run on .NET Core. The changes needed are actually quite minimal. If you've migrated C# projects to .NET Core before, migrating C++/CLI projects is even simpler because the project file format doesn't change. With managed projects, .NET Core and .NET Standard projects use the new SDK-style project file format. For C++/CLI projects, though, the same vcxproj format is used to target .NET Core as .NET Framework.
 
-All that's needed is to make a few changes to the project file. Some of these can be done through the Visual Studio IDE (using the 'Advanced Properties' tab of project configuration), but others (such as adding WinForms references) can't be yet. So the easiest way to update the project file, currently, is to just unload the project in VS and edit the vcxproj directly or to use an editor like VS Code or Notepad.
+All that's needed is to make a few changes to the project file. Some of these can be done through the Visual Studio IDE, but others (such as adding WinForms references) can't be yet. So the easiest way to update the project file, currently, is to just unload the project in VS and edit the vcxproj directly or to use an editor like VS Code or Notepad.
 
 1. Replace `<CLRSupport>true</CLRSupport>` with `<CLRSupport>NetCore</CLRSupport>`. This tells the compiler to use `/clr:netcore` instead of `/clr` when building.
     1. This change can be done through Visual Studio's project configuration interface if you prefer.
     1. Note that `<CLRSupport>` is specified separately in each configuration/platform-specific property group in the sample project's project file, so the update needs to be made four different places.
 1. Replace `<TargetFrameworkVersion>4.7</TargetFrameworkVersion>` with `<TargetFramework>netcoreapp3.1</TargetFramework>`.
+    1. These settings can be modified through Visual Studio's project configuration interface in the 'Advanced' tab. Note, however, that changing a project's CLR support setting as described in the previous step won't change `<TargetFrameworkVersion>` automatically, so be sure to clear the ".NET Target Framework Version" setting before selecting .NET Core Runtime Support.
 1. Replace .NET Framework references (to System, System.Data, System.Windows.Forms, and System.Xml) with the following reference to WinForms components from the Windows Desktop .NET Core SDK. This step doesn't have Visual Studio IDE support yet, so it must be done by editing the vcxproj directly. Notice that only a reference to the Windows Desktop SDK is needed because the .NET Core SDK (which includes libraries like System, System.Xml, etc.) is included automatically. There are different Framework references for WinForms, WPF, or both (as explained in the [migration docs](https://docs.microsoft.com/dotnet/core/porting/cpp-cli)).
+
     ```xml
     <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
     ```
