@@ -1,5 +1,5 @@
 # Porting this project to .NET 5/6
-You can check out the dotnet branch for a buildable example.
+You can check out the [dotnet branch](https://github.com/Gnomorian/CppCliMigrationSample/tree/dotnet) for a buildable example.
 - Use Visual Studio 2022 and migrage the projects to v143
 - change the targetframework or targetframeworks in the ManagedLibrary to `net6.0-windows`. This is much easier in 2022 as targetframeworks is now listed in the properties rather than having to go hunting through the .csproj file.
 - Change the CppCliInterop library's TargetFramework to net6.0-windows either in the vcxproj file or in the properties project under Advanced.
