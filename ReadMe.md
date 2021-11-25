@@ -1,3 +1,9 @@
+# Porting this project to .NET 5/6
+You can check out the dotnet branch for a buildable example.
+- Use Visual Studio 2022 and migrage the projects to v143
+- change the targetframework or targetframeworks in the ManagedLibrary to `net6.0-windows`. This is much easier in 2022 as targetframeworks is now listed in the properties rather than having to go hunting through the .csproj file.
+- Change the CppCliInterop library's TargetFramework to net6.0-windows either in the vcxproj file or in the properties project under Advanced.
+
 # Porting a C++/CLI Project to .NET Core
 
 One of the new features of Visual Studio 2019 version 16.4 and .NET Core 3.1 is the ability to build C++/CLI projects targeting .NET Core. This can be done either directly with *cl.exe* and *link.exe* (using the new `/clr:netcore` option) or via MSBuild (using `<CLRSupport>NetCore</CLRSupport>`). In this post, I'll walk through the steps necessary to migrate a simple C++/CLI interop project to .NET Core. More details can be found in [.NET Core documentation](https://docs.microsoft.com/dotnet/core/porting/cpp-cli).
